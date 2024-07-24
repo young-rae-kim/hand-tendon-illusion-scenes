@@ -1,23 +1,23 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.XR.Hands;
 
 public class ScissorsManager : MonoBehaviour
 {
     [SerializeField]
-    private GameObject rightScissorB;
+    private GameObject leftScissorA;
     
     [SerializeField]
-    private Transform rightIndexTipTransform;
+    private Transform leftIndexTipTransform;
     
     [SerializeField]
-    private Transform rightThumbTipTransform;
+    private Transform leftThumbTipTransform;
 
     private List<XRHandSubsystem> handSubsystems;
     private XRHandSubsystem m_HandSubsystem;
-    private float currentHingeAngle = -17.5f;
+    private float currentHingeAngle = 20f;
+    private readonly float rotationSpeed = 1.5f;
+    private readonly float stabilizeSpeed = 0.35f;
 
     // Start is called before the first frame update
     void Start()
@@ -39,26 +39,18 @@ public class ScissorsManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Ref rotation: " + rightScissorB.transform.eulerAngles);
-
+        // Fetching hands, if there exist then transform the scissors
         if (m_HandSubsystem != null) 
-            {
-
-            float dist = Vector3.Distance(rightIndexTipTransform.position, rightThumbTipTransform.position);
+        {
+            // Calculate the euler angle of scissors based on the distance between index tip and thumb tip
+            float dist = Vector3.Distance(leftIndexTipTransform.position, leftThumbTipTransform.position);
             float radius = 0.19469448883f;
-            float updatedHingeAngle = - Mathf.Asin(dist / 2 / radius) * (180 / Mathf.PI) * 2;
+            float updatedHingeAngle = Mathf.Asin(dist / 2 / radius) * (180 / Mathf.PI) * 2;
 
-            rightScissorB.transform.Rotate(0, (updatedHingeAngle - currentHingeAngle) * 1.5f, 0);
+            // Rotate the left scissor and stabilize the whole scissors
+            gameObject.transform.Rotate(0, 0, (updatedHingeAngle - currentHingeAngle) * stabilizeSpeed);
+            leftScissorA.transform.Rotate(0, (updatedHingeAngle - currentHingeAngle) * rotationSpeed, 0);
             currentHingeAngle = updatedHingeAngle;
-
-            // float dist = Vector3.Distance(rightIndexTipTransform.position, rightThumbTipTransform.position);
-            // float radius = 0.19469448883f;
-            // float updatedRotation = Mathf.Asin(dist / 2 / radius) * (180 / Mathf.PI) * 2;
-            // Debug.Log(updatedRotation);
-            
-            // rightScissorA.transform.position = Vector3.MoveTowards(
-            //     rightScissorA.transform.position, 
-            //     rightThumbTipTransform.position + new Vector3 (-0.09f, 0f, 0.08f), .9f);
         }
     }
 }
