@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Hands;
@@ -18,6 +19,18 @@ public class ScissorsManager : MonoBehaviour
     private float currentHingeAngle = 20f;
     private readonly float rotationSpeed = 1.5f;
     private readonly float stabilizeSpeed = 0.35f;
+
+    // For collision & motion flag
+    [SerializeField]
+    private MotionManager motionManager;
+
+    private bool inContact = false;
+    private readonly float stopThreshold = 0.75f;
+    public bool InContact
+    {
+        get { return inContact; }
+        set { inContact = value; }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -47,10 +60,60 @@ public class ScissorsManager : MonoBehaviour
             float radius = 0.19469448883f;
             float updatedHingeAngle = Mathf.Asin(dist / 2 / radius) * (180 / Mathf.PI) * 2;
 
+            // Calculate angular difference 
+            float deltaAngle = updatedHingeAngle - currentHingeAngle;
+
+            // If the scissors are in contact with the interactable, 
+            // update whether the fingers are moving and their motion type
+            if (inContact && Mathf.Abs(deltaAngle) > stopThreshold)
+            {
+                motionManager.IsMoving = true;
+                if (deltaAngle < 0) 
+                {
+                    motionManager.MotionType = MotionManager.Motion.Flexion;
+                }
+                else
+                {
+                    motionManager.MotionType = MotionManager.Motion.Extension;
+                }
+            } 
+
+            // Else, moving state is always false
+            else
+            {
+                motionManager.IsMoving = false;
+            }
+
             // Rotate the left scissor and stabilize the whole scissors
-            gameObject.transform.Rotate(0, 0, (updatedHingeAngle - currentHingeAngle) * stabilizeSpeed);
-            leftScissorA.transform.Rotate(0, (updatedHingeAngle - currentHingeAngle) * rotationSpeed, 0);
+            gameObject.transform.Rotate(0, 0, deltaAngle * stabilizeSpeed);
+            leftScissorA.transform.Rotate(0, deltaAngle * rotationSpeed, 0);
             currentHingeAngle = updatedHingeAngle;
         }
+    }
+
+    void OnTriggerEnter(Collider other) 
+    {
+        if (other.CompareTag("Interactable"))
+        {
+            // Debug.Log("Entered");
+            inContact = true;
+        }
+    }
+
+    void OnTriggerStay(Collider other) 
+    {
+        if (other.CompareTag("Interactable"))
+        {
+            // Debug.Log("Staying");
+        }   
+    }
+
+    void OnTriggerExit(Collider other) 
+    {
+        if (other.CompareTag("Interactable"))
+        {
+            // Debug.Log("Exited");
+            inContact = false;
+        }   
     }
 }
