@@ -19,6 +19,7 @@ public class ScissorsManager : MonoBehaviour
     private float currentHingeAngle = 20f;
     private readonly float rotationSpeed = 1.5f;
     private readonly float stabilizeSpeed = 0.35f;
+    private readonly float scissorRadius = 0.19469448883f;
 
     // For collision & motion flag
     [SerializeField]
@@ -57,8 +58,7 @@ public class ScissorsManager : MonoBehaviour
         {
             // Calculate the euler angle of scissors based on the distance between index tip and thumb tip
             float dist = Vector3.Distance(leftIndexTipTransform.position, leftThumbTipTransform.position);
-            float radius = 0.19469448883f;
-            float updatedHingeAngle = Mathf.Asin(dist / 2 / radius) * (180 / Mathf.PI) * 2;
+            float updatedHingeAngle = Mathf.Asin(dist / 2 / scissorRadius) * (180 / Mathf.PI) * 2;
 
             // Calculate angular difference 
             float deltaAngle = updatedHingeAngle - currentHingeAngle;
