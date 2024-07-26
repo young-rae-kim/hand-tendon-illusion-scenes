@@ -13,7 +13,6 @@ public class HandManager : MonoBehaviour
     [SerializeField]
     private GameObject leftDirectInteractor;
     
-    // private XRHandSubsystem m_HandSubsystem;
     private bool triggerEntered;
     private bool jointClosed;
     private HandVisualizer handVisualizer;
@@ -24,16 +23,7 @@ public class HandManager : MonoBehaviour
     public float rotationSpeed = 10.0f;
     
     void Awake() {
-        // List<XRHandSubsystem> handSubsystems = new List<XRHandSubsystem>();
-        // SubsystemManager.GetSubsystems(handSubsystems);
 
-        // for (int i = 0; i < handSubsystems.Count; i++) {
-        //     XRHandSubsystem handSubsystem = handSubsystems[i];
-        //     if (handSubsystem.running) {
-        //         m_HandSubsystem = handSubsystem;
-        //         break;
-        //     }
-        // }
     }
 
     // Start is called before the first frame update

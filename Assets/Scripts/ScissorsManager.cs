@@ -68,14 +68,8 @@ public class ScissorsManager : MonoBehaviour
             if (inContact && Mathf.Abs(deltaAngle) > stopThreshold)
             {
                 motionManager.IsMoving = true;
-                if (deltaAngle < 0) 
-                {
-                    motionManager.MotionType = MotionManager.Motion.Flexion;
-                }
-                else
-                {
-                    motionManager.MotionType = MotionManager.Motion.Extension;
-                }
+                motionManager.MotionType = (deltaAngle > 0) 
+                ? MotionManager.Motion.Flexion : motionManager.MotionType = MotionManager.Motion.Extension;
             } 
 
             // Else, moving state is always false
