@@ -7,52 +7,48 @@ using UnityEngine.UI;
 public class SliderManager : MonoBehaviour
 {
     [SerializeField]
-    VibrationManager vibrationManager;
-    Transform targetWrist;
-    Slider slider;
+    private MotionManager motionManager;
+
+    [SerializeField]
+    private Transform targetWrist;
+
+    [SerializeField]
+    private Slider slider;
 
     private float currentValue;
+    private readonly float stopThreshold = 0.001f;
 
     // Start is called before the first frame update
     void Start()
     {
-        slider = gameObject.GetComponent<Slider>();
         currentValue = slider.value;
-        // Debug.Log("Start value: " + currentValue);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-    }
+        float updatedValue = slider.value;
+        float delta = updatedValue - currentValue;
 
-    public void ActivateVibration () {
-        float wristRotationAngle = targetWrist.rotation.eulerAngles.z;
-        float sliderVelocity = CalculateVelocity();
+        if (Mathf.Abs(delta) > stopThreshold) 
+        {
+            float wristRotationAngle = targetWrist.rotation.eulerAngles.z;
 
-        // Debug.Log("Wrist angle: " + wristRotationAngle);
-        // Debug.Log("Velocity: " + sliderVelocity);
-
-        if (wristRotationAngle > -90 && wristRotationAngle < 90) {
-            if (sliderVelocity > 0) {
-                vibrationManager.VibrateTowardDown();
-            } else {
-                vibrationManager.VibrateTowardUp();
-            }
-        } else {
-            if (sliderVelocity > 0) {
-                vibrationManager.VibrateTowardUp();
-            } else {
-                vibrationManager.VibrateTowardDown();
+            if (wristRotationAngle > -90 && wristRotationAngle < 90) 
+            {
+                motionManager.MotionType = delta < 0 
+                    ? MotionManager.Motion.Extension : MotionManager.Motion.Flexion;
+            } else 
+            {
+                motionManager.MotionType = delta < 0 
+                    ? MotionManager.Motion.Flexion : MotionManager.Motion.Extension;
             }
         }
-    }
+        else
+        {
+            motionManager.IsMoving = false;
+        }
 
-    private float CalculateVelocity () {
-        float updatedValue = slider.value;
-        float velocity = (updatedValue - currentValue) / Time.deltaTime;
         currentValue = updatedValue;
-        return velocity;
     }
 }

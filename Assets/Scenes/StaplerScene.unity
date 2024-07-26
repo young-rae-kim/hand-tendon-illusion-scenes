@@ -596,10 +596,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isMovingText: {fileID: 2091715194}
   motionTypeText: {fileID: 1774893279}
-  grabbingText: {fileID: 900774423}
-  holdingText: {fileID: 2061741245}
   motionManager: {fileID: 911926076}
-  staplerManager: {fileID: 1859491289}
 --- !u!114 &646142457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1283,7 +1280,7 @@ PrefabInstance:
     - target: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1307,7 +1304,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &900774423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4475,7 +4472,7 @@ GameObject:
   - component: {fileID: 1787577318}
   - component: {fileID: 1787577317}
   m_Layer: 0
-  m_Name: Cloth Holder
+  m_Name: Holder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5260,7 +5257,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2061741245
 MonoBehaviour:
   m_ObjectHideFlags: 0
