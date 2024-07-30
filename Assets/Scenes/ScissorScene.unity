@@ -1787,6 +1787,18 @@ MonoBehaviour:
   crossSectionMaterial: {fileID: 2100000, guid: ac486b295b8d54758a11e0eba1cb0d9a,
     type: 2}
   cutForce: 5
+--- !u!4 &1252265096 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6887264061853145254, guid: 5eccbf4be2c00e94689ee8062e4e7276,
+    type: 3}
+  m_PrefabInstance: {fileID: 2023430512}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1252265097 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9146723843244757241, guid: 5eccbf4be2c00e94689ee8062e4e7276,
+    type: 3}
+  m_PrefabInstance: {fileID: 2023430512}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1364078176
 GameObject:
   m_ObjectHideFlags: 0
@@ -4289,6 +4301,8 @@ MonoBehaviour:
   motionManager: {fileID: 1730479954}
   leftIndexTransform: {fileID: 2023430518}
   leftThumbTransform: {fileID: 2023430517}
+  leftPalmTransform: {fileID: 1252265097}
+  leftIndexProximalTransform: {fileID: 1252265096}
 --- !u!1 &2044153256
 GameObject:
   m_ObjectHideFlags: 0

@@ -1340,7 +1340,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jointManager: {fileID: 1616618523}
   motionManager: {fileID: 20207401}
-  targetWrist: {fileID: 1616618519}
   slider: {fileID: 1106282951}
 --- !u!114 &1106282951 stripped
 MonoBehaviour:
@@ -1728,7 +1727,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jointManager: {fileID: 1616618523}
   motionManager: {fileID: 20207401}
-  targetWrist: {fileID: 1616618519}
   slider: {fileID: 1569412839}
 --- !u!114 &1569412839 stripped
 MonoBehaviour:
@@ -1955,7 +1953,7 @@ MonoBehaviour:
     m_ContrastAdaptiveSharpening: 0
 --- !u!4 &1616618519 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 760172173812383872, guid: 5eccbf4be2c00e94689ee8062e4e7276,
+  m_CorrespondingSourceObject: {fileID: 6887264061853145254, guid: 5eccbf4be2c00e94689ee8062e4e7276,
     type: 3}
   m_PrefabInstance: {fileID: 1616618515}
   m_PrefabAsset: {fileID: 0}
@@ -1992,6 +1990,14 @@ MonoBehaviour:
   motionManager: {fileID: 20207401}
   leftIndexTransform: {fileID: 1616618522}
   leftThumbTransform: {fileID: 1616618521}
+  leftPalmTransform: {fileID: 1616618524}
+  leftIndexProximalTransform: {fileID: 1616618519}
+--- !u!4 &1616618524 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9146723843244757241, guid: 5eccbf4be2c00e94689ee8062e4e7276,
+    type: 3}
+  m_PrefabInstance: {fileID: 1616618515}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1645094433
 GameObject:
   m_ObjectHideFlags: 0

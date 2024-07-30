@@ -34,7 +34,7 @@ public class GrabManager : MonoBehaviour
     {
         if (holding) 
         {
-            var (updatedAngle, deltaAngle) = jointManager.CalculateAngle(currentAngle, fingerRadius, stopThreshold);
+            var (updatedAngle, deltaAngle) = jointManager.CalculateAngle(currentAngle, fingerRadius);
             motionManager.IsMoving = Mathf.Abs(deltaAngle) > stopThreshold;
             currentAngle = updatedAngle;
         }

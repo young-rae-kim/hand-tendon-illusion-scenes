@@ -2214,6 +2214,8 @@ MonoBehaviour:
   motionManager: {fileID: 1997281650}
   leftIndexTransform: {fileID: 1321146072}
   leftThumbTransform: {fileID: 673664376}
+  leftPalmTransform: {fileID: 1812533611}
+  leftIndexProximalTransform: {fileID: 2057953052}
 --- !u!1 &1750241912
 GameObject:
   m_ObjectHideFlags: 0
@@ -2247,6 +2249,12 @@ Transform:
   - {fileID: 510088765}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1812533611 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 9146723843244757241, guid: 5eccbf4be2c00e94689ee8062e4e7276,
+    type: 3}
+  m_PrefabInstance: {fileID: 1417414293}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1858898055
 GameObject:
   m_ObjectHideFlags: 0
@@ -2768,6 +2776,12 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &2057953052 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6887264061853145254, guid: 5eccbf4be2c00e94689ee8062e4e7276,
+    type: 3}
+  m_PrefabInstance: {fileID: 1417414293}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

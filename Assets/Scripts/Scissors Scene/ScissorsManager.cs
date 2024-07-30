@@ -66,7 +66,7 @@ public class ScissorsManager : MonoBehaviour
         if (m_HandSubsystem != null) 
         {
             // Calculate the euler angle of scissors based on the distance between index tip and thumb tip
-            var (updatedAngle, deltaAngle) = jointManager.CalculateAngle(currentHingeAngle, scissorRadius, stopThreshold);
+            var (updatedAngle, deltaAngle) = jointManager.CalculateAngle(currentHingeAngle, scissorRadius);
 
             // If the scissors are in contact with the interactable, update whether the fingers are moving 
             motionManager.IsMoving = inContact && Mathf.Abs(deltaAngle) > stopThreshold;

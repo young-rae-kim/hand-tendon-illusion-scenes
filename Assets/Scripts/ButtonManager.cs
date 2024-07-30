@@ -29,9 +29,7 @@ public class ButtonManager : MonoBehaviour
     void Update()
     {
         float updatedYPosition = offsetTransform.transform.position.y;
-        var (updatedAngle, deltaAngle) = jointManager.CalculateAngle(
-            currentAngle, fingerRadius, stopThreshold
-        );
+        var (updatedAngle, deltaAngle) = jointManager.CalculateAngle(currentAngle, fingerRadius);
 
         motionManager.IsMoving = Mathf.Abs(deltaAngle) > stopThreshold 
             && Mathf.Abs(updatedYPosition - currentYPosition) > valueThreshold;

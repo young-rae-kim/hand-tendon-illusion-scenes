@@ -47,7 +47,7 @@ public class StaplerManager : MonoBehaviour
         if (holding) 
         {
             // Calculate the euler angle of stapler based on the distance between index distal and thumb tip
-            var (updatedAngle, _) = jointManager.CalculateAngle(currentHingeAngle, staplerRadius, stopThreshold);
+            var (updatedAngle, _) = jointManager.CalculateAngle(currentHingeAngle, staplerRadius);
             float updatedHingeAngle = 9 - updatedAngle;
             float deltaAngle = updatedHingeAngle - currentHingeAngle;
 

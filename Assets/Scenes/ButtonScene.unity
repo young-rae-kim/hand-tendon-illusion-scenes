@@ -1316,6 +1316,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
+--- !u!4 &1212084143 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1807123904365782948, guid: d6878e1999eb4b44a9f5a263af86c185,
+    type: 3}
+  m_PrefabInstance: {fileID: 1970282633}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1396154576 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4066745442278830075, guid: d6878e1999eb4b44a9f5a263af86c185,
+    type: 3}
+  m_PrefabInstance: {fileID: 1970282633}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1722002069
 GameObject:
   m_ObjectHideFlags: 0
@@ -1819,6 +1831,8 @@ MonoBehaviour:
   motionManager: {fileID: 402510096}
   leftIndexTransform: {fileID: 1970282636}
   leftThumbTransform: {fileID: 1970282635}
+  leftPalmTransform: {fileID: 1212084143}
+  leftIndexProximalTransform: {fileID: 1396154576}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

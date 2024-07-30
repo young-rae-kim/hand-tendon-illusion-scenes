@@ -29,9 +29,7 @@ public class SliderManager : MonoBehaviour
     void Update()
     {
         float updatedValue = slider.value;
-        var (updatedAngle, deltaAngle) = jointManager.CalculateAngle(
-            currentAngle, fingerRadius, stopThreshold
-        );
+        var (updatedAngle, deltaAngle) = jointManager.CalculateAngle(currentAngle, fingerRadius);
 
         motionManager.IsMoving = Mathf.Abs(deltaAngle) > stopThreshold 
             && Mathf.Abs(updatedValue - currentValue) > valueThreshold;
