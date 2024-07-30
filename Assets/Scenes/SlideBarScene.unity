@@ -96,8 +96,10 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 3469c5b3d346b864e95c23798a376141,
+    type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 764448dc16dcc5249abb09fafeb3438b,
+    type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1336,6 +1338,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcf0a7b007996bc429140a9c785217e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jointManager: {fileID: 1616618523}
   motionManager: {fileID: 20207401}
   targetWrist: {fileID: 1616618519}
   slider: {fileID: 1106282951}
@@ -1723,6 +1726,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcf0a7b007996bc429140a9c785217e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jointManager: {fileID: 1616618523}
   motionManager: {fileID: 20207401}
   targetWrist: {fileID: 1616618519}
   slider: {fileID: 1569412839}
@@ -1888,6 +1892,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1616618518}
+    - targetCorrespondingSourceObject: {fileID: 4596136170892101230, guid: 5eccbf4be2c00e94689ee8062e4e7276,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1616618523}
   m_SourcePrefab: {fileID: 100100000, guid: 5eccbf4be2c00e94689ee8062e4e7276, type: 3}
 --- !u!20 &1616618516 stripped
 Camera:
@@ -1951,6 +1959,39 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1616618515}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1616618520 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4596136170892101230, guid: 5eccbf4be2c00e94689ee8062e4e7276,
+    type: 3}
+  m_PrefabInstance: {fileID: 1616618515}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1616618521 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8104392627490759510, guid: 5eccbf4be2c00e94689ee8062e4e7276,
+    type: 3}
+  m_PrefabInstance: {fileID: 1616618515}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1616618522 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3576007996139048549, guid: 5eccbf4be2c00e94689ee8062e4e7276,
+    type: 3}
+  m_PrefabInstance: {fileID: 1616618515}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1616618523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1616618520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 014872ab7fc65b54c9fad15402826b5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  motionManager: {fileID: 20207401}
+  leftIndexTransform: {fileID: 1616618522}
+  leftThumbTransform: {fileID: 1616618521}
 --- !u!1 &1645094433
 GameObject:
   m_ObjectHideFlags: 0
@@ -2064,7 +2105,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!64 &1686986128
 MeshCollider:
@@ -2170,7 +2211,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!65 &1690764910
 BoxCollider:

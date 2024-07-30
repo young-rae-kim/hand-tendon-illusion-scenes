@@ -96,8 +96,10 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: f28b1867fc41a384985700f7fd1b7327,
+    type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 764448dc16dcc5249abb09fafeb3438b,
+    type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -569,8 +571,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaec0a6e7f2081442ab85c12f34b4786, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftIndexTipTransform: {fileID: 1321146072}
-  leftThumbTipTransform: {fileID: 673664376}
+  jointManager: {fileID: 1417414297}
   motionManager: {fileID: 1997281650}
 --- !u!1001 &839366260
 PrefabInstance:
@@ -1003,7 +1004,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!65 &856316909
 BoxCollider:
@@ -1141,7 +1142,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!64 &1018333505
 MeshCollider:
@@ -1329,7 +1330,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1104415083
 Transform:
@@ -2174,7 +2175,11 @@ PrefabInstance:
         type: 3}
       insertIndex: 0
       addedObject: {fileID: 1875563788}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4596136170892101230, guid: 5eccbf4be2c00e94689ee8062e4e7276,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1417414297}
   m_SourcePrefab: {fileID: 100100000, guid: 5eccbf4be2c00e94689ee8062e4e7276, type: 3}
 --- !u!4 &1417414294 stripped
 Transform:
@@ -2188,6 +2193,27 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1417414293}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1417414296 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4596136170892101230, guid: 5eccbf4be2c00e94689ee8062e4e7276,
+    type: 3}
+  m_PrefabInstance: {fileID: 1417414293}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1417414297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1417414296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 014872ab7fc65b54c9fad15402826b5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  motionManager: {fileID: 1997281650}
+  leftIndexTransform: {fileID: 1321146072}
+  leftThumbTransform: {fileID: 673664376}
 --- !u!1 &1750241912
 GameObject:
   m_ObjectHideFlags: 0
@@ -2691,7 +2717,7 @@ PrefabInstance:
     - target: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

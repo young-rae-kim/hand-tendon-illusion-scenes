@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.XR.Hands;
 
@@ -7,12 +8,12 @@ public class ScissorsManager : MonoBehaviour
 {
     [SerializeField]
     private GameObject leftScissorA;
-    
+
     [SerializeField]
-    private Transform leftIndexTipTransform;
-    
+    private JointManager jointManager;
+
     [SerializeField]
-    private Transform leftThumbTipTransform;
+    private TextMeshProUGUI closedText;
 
     private List<XRHandSubsystem> handSubsystems;
     private XRHandSubsystem m_HandSubsystem;
@@ -25,8 +26,16 @@ public class ScissorsManager : MonoBehaviour
     [SerializeField]
     private MotionManager motionManager;
 
+    private bool closed = false;
     private bool inContact = false;
     private readonly float stopThreshold = 0.75f;
+    private readonly float closedThreshold = 15f;
+    
+    public bool Closed
+    {
+        get { return closed; }
+        set { closed = value; }
+    }
     public bool InContact
     {
         get { return inContact; }
@@ -57,56 +66,34 @@ public class ScissorsManager : MonoBehaviour
         if (m_HandSubsystem != null) 
         {
             // Calculate the euler angle of scissors based on the distance between index tip and thumb tip
-            float dist = Vector3.Distance(leftIndexTipTransform.position, leftThumbTipTransform.position);
-            float updatedHingeAngle = Mathf.Asin(dist / 2 / scissorRadius) * (180 / Mathf.PI) * 2;
+            var (updatedAngle, deltaAngle) = jointManager.CalculateAngle(currentHingeAngle, scissorRadius, stopThreshold);
 
-            // Calculate angular difference 
-            float deltaAngle = updatedHingeAngle - currentHingeAngle;
-
-            // If the scissors are in contact with the interactable, 
-            // update whether the fingers are moving and their motion type
-            if (inContact && Mathf.Abs(deltaAngle) > stopThreshold)
-            {
-                motionManager.IsMoving = true;
-                motionManager.MotionType = (deltaAngle > 0) 
-                ? MotionManager.Motion.Flexion : motionManager.MotionType = MotionManager.Motion.Extension;
-            } 
-
-            // Else, moving state is always false
-            else
-            {
-                motionManager.IsMoving = false;
-            }
+            // If the scissors are in contact with the interactable, update whether the fingers are moving 
+            motionManager.IsMoving = inContact && Mathf.Abs(deltaAngle) > stopThreshold;
 
             // Rotate the left scissor and stabilize the whole scissors
             gameObject.transform.Rotate(0, 0, deltaAngle * stabilizeSpeed);
             leftScissorA.transform.Rotate(0, deltaAngle * rotationSpeed, 0);
-            currentHingeAngle = updatedHingeAngle;
+            closed = updatedAngle < closedThreshold;
+
+            currentHingeAngle = updatedAngle;
         }
+
+        closedText.text = "Closed: " + closed.ToString();
     }
 
     void OnTriggerEnter(Collider other) 
     {
         if (other.CompareTag("Interactable"))
         {
-            // Debug.Log("Entered");
             inContact = true;
         }
-    }
-
-    void OnTriggerStay(Collider other) 
-    {
-        if (other.CompareTag("Interactable"))
-        {
-            // Debug.Log("Staying");
-        }   
     }
 
     void OnTriggerExit(Collider other) 
     {
         if (other.CompareTag("Interactable"))
         {
-            // Debug.Log("Exited");
             inContact = false;
         }   
     }

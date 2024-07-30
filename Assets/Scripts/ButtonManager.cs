@@ -5,13 +5,19 @@ using UnityEngine;
 public class ButtonManager : MonoBehaviour
 {
     [SerializeField]
+    private JointManager jointManager;
+
+    [SerializeField]
     private Transform offsetTransform;
 
     [SerializeField]
     private MotionManager motionManager;
     
-    private readonly float stopThreshold = 0.00001f;
+    private float currentAngle = 90.0f;
     private float currentYPosition = 0.7656894f;
+    private readonly float fingerRadius = 0.3f;
+    private readonly float stopThreshold = 0.5f;
+    private readonly float valueThreshold = 0.00001f;
 
     // Start is called before the first frame update
     void Start()
@@ -23,20 +29,14 @@ public class ButtonManager : MonoBehaviour
     void Update()
     {
         float updatedYPosition = offsetTransform.transform.position.y;
-        float delta = updatedYPosition - currentYPosition;
+        var (updatedAngle, deltaAngle) = jointManager.CalculateAngle(
+            currentAngle, fingerRadius, stopThreshold
+        );
 
-        if (Mathf.Abs(delta) > stopThreshold) 
-        { 
-            motionManager.IsMoving = true;
-            motionManager.MotionType = (delta < 0) ? MotionManager.Motion.Flexion : MotionManager.Motion.Extension;
-        } 
+        motionManager.IsMoving = Mathf.Abs(deltaAngle) > stopThreshold 
+            && Mathf.Abs(updatedYPosition - currentYPosition) > valueThreshold;
 
-        // Else, moving state is always false
-        else 
-        {
-            motionManager.IsMoving = false;
-        }
-
+        currentAngle = updatedAngle;
         currentYPosition = updatedYPosition;
     }
 }

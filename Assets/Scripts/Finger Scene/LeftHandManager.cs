@@ -26,13 +26,4 @@ public class LeftHandManager : MonoBehaviour
     IEnumerator OnTriggerEnter(Collider other) {
         yield return StartCoroutine(handManager.JointTransform());
     }
-
-    // IEnumerator WaitBeforeInteraction(float time) {
-    //     float timeCounter = 0.0f;
-    //     while (timeCounter < time) {
-    //         timeCounter += Time.deltaTime;
-    //         Debug.Log("Waited for: " + timeCounter + " s");
-    //         yield return null;
-    //     }
-    // }
 }
