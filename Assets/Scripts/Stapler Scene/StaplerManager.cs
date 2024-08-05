@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.XR.Hands;
 
@@ -11,17 +12,16 @@ public class StaplerManager : MonoBehaviour
     [SerializeField]
     private JointManager jointManager;
 
+    public TextMeshProUGUI grabbingText;
+    public TextMeshProUGUI holdingText;
+
     private float currentHingeAngle = 0f;
     private readonly float rotationSpeed = 1.2f;
     private readonly float staplerRadius = 0.51631709605f;
 
-    // For Grab & motion flag
-    [SerializeField]
-    private MotionManager motionManager;
 
     private bool grabbing = false;
     private bool holding = false;
-    private readonly float stopThreshold = 0.5f;
     public bool Grabbing 
     {
         get { return grabbing; }
@@ -50,15 +50,14 @@ public class StaplerManager : MonoBehaviour
             var (updatedAngle, _) = jointManager.CalculateAngle(currentHingeAngle, staplerRadius);
             float updatedHingeAngle = 9 - updatedAngle;
             float deltaAngle = updatedHingeAngle - currentHingeAngle;
-
-            // If the hand are in contact with the interactable, 
-            // update whether the fingers are moving
-            motionManager.IsMoving = Mathf.Abs(deltaAngle) > stopThreshold;
             
             // Rotate the bracket and stabilize the whole stapler
             staplerBracket.transform.Rotate(0, 0, deltaAngle * rotationSpeed);
             currentHingeAngle = updatedHingeAngle;
         }
+
+        grabbingText.text = "Grabbing: " + Grabbing.ToString();
+        holdingText.text = "Holding: " + Holding.ToString();
     }
 
     public void ResetStapler()

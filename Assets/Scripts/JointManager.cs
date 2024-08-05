@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class JointManager : MonoBehaviour
@@ -19,12 +20,19 @@ public class JointManager : MonoBehaviour
     [SerializeField]
     private Transform leftIndexProximalTransform;
 
+    [SerializeField]
+    private TextMeshProUGUI velocityText;
+
+    private ushort index = 0;
     private float currentAngle = 0.0f;
-    private readonly float angleThreshold = 2f;
+    private readonly float angleThreshold = 20f;
+    public float flexionThreshold;
+    public float extensionThreshold;
 
     void Update()
     {
         UpdateMotionType();
+
     }
 
     public (float updatedAngle, float deltaAngle) CalculateAngle (float currentAngle, float objectRadius)
@@ -40,13 +48,63 @@ public class JointManager : MonoBehaviour
     public void UpdateMotionType()
     {
         float updatedAngle = Quaternion.Angle(leftPalmTransform.rotation, leftIndexProximalTransform.rotation);
-        float deltaAngle = updatedAngle - currentAngle;
+        float angleVelocity = (updatedAngle - currentAngle) / Time.deltaTime;
+
+        if (index > 10) 
+        {
+            velocityText.text = "Angular velocity: " + angleVelocity.ToString("N2");
+            index = 0;
+        }
+
+        index++;
+        
 
         // Update motion type (flexion or extension)
-        if (Mathf.Abs(deltaAngle) > angleThreshold)
-            motionManager.MotionType = (deltaAngle > 0) 
-                ? MotionManager.Motion.Flexion 
-                : MotionManager.Motion.Extension;
+        if (!motionManager.IsMoving)
+        {
+            switch (motionManager.MotionType)
+            {
+                case MotionManager.Motion.Flexion:
+                    if (angleVelocity < -extensionThreshold)
+                    {
+                        motionManager.MotionType = MotionManager.Motion.Extension;
+                        motionManager.IsMoving = true;
+                    }
+                    else
+                    {
+                        if (updatedAngle < angleThreshold)
+                            motionManager.MotionType = MotionManager.Motion.Extension;
+                    }
+                    break;
+
+                case MotionManager.Motion.Extension:
+                    if (angleVelocity > flexionThreshold)
+                    {
+                        motionManager.MotionType = MotionManager.Motion.Flexion;
+                        motionManager.IsMoving = true;
+                    }
+                    else
+                    {
+                        if (updatedAngle > angleThreshold)
+                            motionManager.MotionType = MotionManager.Motion.Flexion;
+                    }
+                    break;
+            }
+        } 
+        
+        else
+        {
+            switch (motionManager.MotionType)
+            {
+                case MotionManager.Motion.Flexion:
+                    motionManager.IsMoving = angleVelocity > flexionThreshold;
+                    break;
+
+                case MotionManager.Motion.Extension:
+                    motionManager.IsMoving = angleVelocity < -extensionThreshold;
+                    break;
+            }
+        }
         
         currentAngle = updatedAngle;
     }

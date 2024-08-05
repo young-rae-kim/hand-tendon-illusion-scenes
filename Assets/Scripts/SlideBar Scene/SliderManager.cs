@@ -1,40 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class SliderManager : MonoBehaviour
 {
-    [SerializeField]
-    private JointManager jointManager;
+    public TextMeshProUGUI inChangeText;
+    public bool isVertical;
+    public bool InChange 
+    {
+        get { return inChange; }
+        set { inChange = value; }
+    }
 
-    [SerializeField]
-    private MotionManager motionManager;
-
-    [SerializeField]
-    private Slider slider;
-
-    private float currentValue;
-    private float currentAngle = 90.0f;
-    private readonly float fingerRadius = 0.3f;
-    private readonly float stopThreshold = 0.5f;
-    private readonly float valueThreshold = 0.001f;
+    private bool inChange = false;
+    private float value;
 
     void Start()
     {
-        currentValue = slider.value;
+        value = gameObject.GetComponent<Slider>().value;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        float updatedValue = slider.value;
-        var (updatedAngle, deltaAngle) = jointManager.CalculateAngle(currentAngle, fingerRadius);
+        float updatedValue = gameObject.GetComponent<Slider>().value;
+        inChange = updatedValue != value;
 
-        motionManager.IsMoving = Mathf.Abs(deltaAngle) > stopThreshold 
-            && Mathf.Abs(updatedValue - currentValue) > valueThreshold;
-
-        currentAngle = updatedAngle;
-        currentValue = updatedValue;
+        inChangeText.text = (isVertical ? "Vertical in change: " : "Horizontal in change: ") + inChange.ToString();
+        value = updatedValue;
     }
 }

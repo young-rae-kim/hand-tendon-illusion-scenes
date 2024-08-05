@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ButtonManager : MonoBehaviour
@@ -10,14 +11,15 @@ public class ButtonManager : MonoBehaviour
     [SerializeField]
     private Transform offsetTransform;
 
-    [SerializeField]
-    private MotionManager motionManager;
-    
-    private float currentAngle = 90.0f;
-    private float currentYPosition = 0.7656894f;
-    private readonly float fingerRadius = 0.3f;
-    private readonly float stopThreshold = 0.5f;
-    private readonly float valueThreshold = 0.00001f;
+    public TextMeshProUGUI pushedText;
+    public bool Pushed
+    {
+        get { return pushed; }
+        set { pushed = value; }
+    }
+
+    private bool pushed = false;
+    private readonly float positionThreshold = 0.76f;
 
     // Start is called before the first frame update
     void Start()
@@ -29,12 +31,7 @@ public class ButtonManager : MonoBehaviour
     void Update()
     {
         float updatedYPosition = offsetTransform.transform.position.y;
-        var (updatedAngle, deltaAngle) = jointManager.CalculateAngle(currentAngle, fingerRadius);
-
-        motionManager.IsMoving = Mathf.Abs(deltaAngle) > stopThreshold 
-            && Mathf.Abs(updatedYPosition - currentYPosition) > valueThreshold;
-
-        currentAngle = updatedAngle;
-        currentYPosition = updatedYPosition;
+        pushed = updatedYPosition < positionThreshold;
+        pushedText.text = "Pushed: " + pushed.ToString();
     }
 }

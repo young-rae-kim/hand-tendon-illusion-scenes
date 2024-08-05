@@ -22,13 +22,8 @@ public class ScissorsManager : MonoBehaviour
     private readonly float stabilizeSpeed = 0.35f;
     private readonly float scissorRadius = 0.19469448883f;
 
-    // For collision & motion flag
-    [SerializeField]
-    private MotionManager motionManager;
-
     private bool closed = false;
     private bool inContact = false;
-    private readonly float stopThreshold = 0.75f;
     private readonly float closedThreshold = 15f;
     
     public bool Closed
@@ -67,9 +62,6 @@ public class ScissorsManager : MonoBehaviour
         {
             // Calculate the euler angle of scissors based on the distance between index tip and thumb tip
             var (updatedAngle, deltaAngle) = jointManager.CalculateAngle(currentHingeAngle, scissorRadius);
-
-            // If the scissors are in contact with the interactable, update whether the fingers are moving 
-            motionManager.IsMoving = inContact && Mathf.Abs(deltaAngle) > stopThreshold;
 
             // Rotate the left scissor and stabilize the whole scissors
             gameObject.transform.Rotate(0, 0, deltaAngle * stabilizeSpeed);
