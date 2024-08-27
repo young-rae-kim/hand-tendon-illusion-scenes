@@ -58,7 +58,6 @@ public class JointManager : MonoBehaviour
 
         index++;
         
-
         // Update motion type (flexion or extension)
         if (!motionManager.IsMoving)
         {

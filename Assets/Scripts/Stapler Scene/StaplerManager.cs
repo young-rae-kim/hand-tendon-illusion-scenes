@@ -12,6 +12,9 @@ public class StaplerManager : MonoBehaviour
     [SerializeField]
     private JointManager jointManager;
 
+    [SerializeField]
+    private ArduinoController arduinoController;
+
     public TextMeshProUGUI grabbingText;
     public TextMeshProUGUI holdingText;
 
@@ -25,12 +28,31 @@ public class StaplerManager : MonoBehaviour
     public bool Grabbing 
     {
         get { return grabbing; }
-        set { grabbing = value; }
+        set 
+        { 
+            bool previousValue = grabbing; 
+             
+            if (Holding && previousValue != value)
+            {
+                if (value)
+                    arduinoController.Vibrate(true);
+                else
+                    arduinoController.Stop(true);
+            }
+
+            grabbing = value;
+        }
     }
     public bool Holding 
     {
         get { return holding; }
-        set { holding = value; }
+        set 
+        { 
+            if (!value && arduinoController.Vibration)
+                arduinoController.Stop(true);
+                
+            holding = value; 
+        }
     }
 
     // Update is called once per frame

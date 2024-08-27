@@ -26,17 +26,20 @@ void setup() {
   lfi.impedance = 8.37;
   lfi.lraFreq = 80;
 
-  for(int i; i<NUMBER_OF_SENSORS; i++){
+  for (int i; i<NUMBER_OF_SENSORS; i++) {
     TCA9548A(i);
     hapDrive[i].begin();
-    if( !hapDrive[i].begin())
+
+    if (!hapDrive[i].begin())
       Serial.println("Could not communicate with Haptic Driver1.");
+    
     hapDrive[i].enableFreqTrack(false);
     hapDrive[i].setOperationMode(DRO_MODE);
-    if(!hapDrive[i].setMotor(lfi))
-    {
+
+    if (!hapDrive[i].setMotor(lfi)) {
       Serial.println("Setting failed");
     }
+
     hapDrive[i].setVibrate(0);
   }
 }
@@ -55,22 +58,22 @@ void copy(int* src, int* dst, int len) {
 }
 
 void loop() {
-  for(int i; i<NUMBER_OF_SENSORS; i++){
+  for (int i; i<NUMBER_OF_SENSORS; i++) {
     event = hapDrive[i].getIrqEvent();
     hapDrive[i].clearIrq(event);
   }
 
-  if (Serial.available() >= 2){
+  if (Serial.available() > 2) {
     //from unity
-    // Serial.readBytes(buf, 3);
-    // uint8_t setting = int(buf[0]);
-    // uint8_t command = int(buf[1]);
-    // uint8_t duration = int(buf[2]);
+    Serial.readBytes(buf, 3);
+    uint8_t setting = int(buf[0]);
+    uint8_t command = int(buf[1]);
+    uint8_t duration = int(buf[2]);
 
     //manual check
-    int setting = Serial.parseInt();
-    int command = Serial.parseInt();
-    int duration = Serial.parseInt();
+    // int setting = Serial.parseInt();
+    // int command = Serial.parseInt();
+    // int duration = Serial.parseInt();
 
     Serial.print("Setting read: ");
     Serial.println(setting);
@@ -88,7 +91,7 @@ void loop() {
 
     int targetMotor;
 
-    switch(setting){
+    switch (setting){
       case 1:
         targetMotor = indEx;
         break;
@@ -105,10 +108,11 @@ void loop() {
 
     TCA9548A(targetMotor);
     hapDrive[targetMotor].setVibrate(amp);
-    if(command == 2){
+
+    if (command == 2) {
       Serial.print("Vibrating with duration(ms): ");
-      Serial.println(duration*250);
-      delay(duration*250);
+      Serial.println(duration * 250);
+      delay(duration * 250);
       hapDrive[targetMotor].setVibrate(0);
     }
   }
