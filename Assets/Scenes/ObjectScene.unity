@@ -660,7 +660,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_HandTrackingEvents: {fileID: 1174059935}
-  m_HandShapeOrPose: {fileID: 11400000, guid: 5a772f705074ae342875a76e66d68934, type: 2}
+  m_HandShapeOrPose: {fileID: 11400000, guid: c0ebec966fec1a543ae22ba176ef2c65, type: 2}
   m_TargetTransform: {fileID: 0}
   m_Background: {fileID: 1272306135}
   m_GesturePerformed:
