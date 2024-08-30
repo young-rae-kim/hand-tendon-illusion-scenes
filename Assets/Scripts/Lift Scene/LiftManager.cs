@@ -52,6 +52,7 @@ public class LiftManager : MonoBehaviour
     {
         originalPosition = gameObject.transform.position;
         originalRotation = gameObject.transform.rotation;
+
         XRGrabInteractable grabInteractable = GetComponent<XRGrabInteractable>();
         grabInteractable.hoverEntered.AddListener(SetupAttach);
         grabInteractable.selectExited.AddListener(CancelAttach);
@@ -80,6 +81,13 @@ public class LiftManager : MonoBehaviour
     {
         gameObject.transform.position = originalPosition;
         gameObject.transform.rotation = originalRotation;
+        leftHandPosition.SetActive(true);
+        Holding = false;
+    }
+
+    public void Revert()
+    {
+        gameObject.transform.SetPositionAndRotation(originalPosition, originalRotation);
         leftHandPosition.SetActive(true);
         Holding = false;
     }

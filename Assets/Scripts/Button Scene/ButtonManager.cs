@@ -35,13 +35,7 @@ public class ButtonManager : MonoBehaviour
     }
 
     private bool pushed = false;
-    private readonly float positionThreshold = 0.76f;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private readonly float positionThreshold = 0.89f;
 
     // Update is called once per frame
     void Update()

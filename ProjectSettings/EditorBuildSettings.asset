@@ -9,6 +9,8 @@ EditorBuildSettings:
     path: Assets/Scenes/ButtonScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects:
+    com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: a3064a14403b7354d8c8b2dc1a4e39f7,
+      type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: d0432cdcd621a7246a292d0fdca6d8a0,
       type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: d0c494588b017524889f42d26502107a,

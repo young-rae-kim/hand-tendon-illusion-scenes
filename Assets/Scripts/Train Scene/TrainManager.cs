@@ -20,42 +20,33 @@ public class TrainManager : MonoBehaviour
     private Transform leftIndexTip;
 
     private bool firstPushed = false;
-    private float currentXPosition = 0.4f;
-    private readonly float offset = 1.04f;
+    private float currentXPosition = -0.45f;
+    public float offset = 0.055f;
     private readonly float threshold = 0.1f;
-    private readonly float lowerbound = 0.4f;
-    private readonly float upperbound = 1.9f;
+    private readonly float lowerbound = -0.455f;
+    private readonly float upperbound = 0.7f;
 
     // Update is called once per frame
     void Update()
     {
         float updatedPosition = leftIndexTip.position.x + offset;
-        pushManager.Pushing = firstPushed && updatedPosition >= currentXPosition - threshold;
+        pushManager.Pushing = 
+            firstPushed && updatedPosition >= currentXPosition - threshold;
 
         if (train.transform.position.x < lowerbound)
         {
-            train.transform.position = new Vector3 (
-                lowerbound, train.transform.position.y, train.transform.position.z
-            );
+            MoveTrain(lowerbound);
         }
         else if (train.transform.position.x > upperbound)
         {
             Debug.Log("Train reached");
-            train.transform.position = new Vector3 (
-                lowerbound, train.transform.position.y, train.transform.position.z
-            );
-            firstPushed = false;
-            leftHand.SetActive(true);
-            leftHandPosition.SetActive(true);
-            pushManager.Pushing = false;
+            Revert();
         } 
         else if (firstPushed)
         {
             if (updatedPosition >= currentXPosition)
             {
-                train.transform.position = new Vector3 (
-                    updatedPosition, train.transform.position.y, train.transform.position.z
-                );
+                MoveTrain(updatedPosition);
                 leftHand.SetActive(false);
                 leftHandPosition.SetActive(true);
             }
@@ -80,5 +71,21 @@ public class TrainManager : MonoBehaviour
             leftHand.SetActive(false);
             pushManager.Pushing = true;
         }
+    }
+
+    public void Revert()
+    {
+        MoveTrain(lowerbound);
+        firstPushed = false;
+        leftHand.SetActive(true);
+        leftHandPosition.SetActive(true);
+        pushManager.Pushing = false;
+    }
+
+    private void MoveTrain(float xPosition)
+    {
+        train.transform.position = new Vector3 (
+            xPosition, train.transform.position.y, train.transform.position.z
+        );
     }
 }

@@ -18,10 +18,12 @@ public class StaplerManager : MonoBehaviour
     public TextMeshProUGUI grabbingText;
     public TextMeshProUGUI holdingText;
 
+    private Vector3 originalPosition;
+    private Quaternion originalRotation;
+
     private float currentHingeAngle = 0f;
     private readonly float rotationSpeed = 1.2f;
     private readonly float staplerRadius = 0.51631709605f;
-
 
     private bool grabbing = false;
     private bool holding = false;
@@ -55,6 +57,12 @@ public class StaplerManager : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        originalPosition = gameObject.transform.position;
+        originalRotation = gameObject.transform.rotation;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -77,7 +85,15 @@ public class StaplerManager : MonoBehaviour
 
     public void ResetStapler()
     {
-        float deltaAngle = 0 - currentHingeAngle;
+        float deltaAngle = - currentHingeAngle;
         staplerBracket.transform.Rotate(0, 0, deltaAngle * rotationSpeed);
+        currentHingeAngle = 0f;
+    }
+
+    public void Revert()
+    {
+        ResetStapler();
+        gameObject.transform.SetPositionAndRotation(originalPosition, originalRotation);
+        Holding = false;
     }
 }
