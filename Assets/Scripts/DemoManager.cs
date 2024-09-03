@@ -12,6 +12,9 @@ public class DemoManager : MonoBehaviour
     private LiftManager liftManager;
 
     [SerializeField]
+    private HoldManager holdManager;
+
+    [SerializeField]
     private TrainManager trainManager;
 
     [SerializeField]
@@ -32,12 +35,7 @@ public class DemoManager : MonoBehaviour
         get { return currentScene; }
         set 
         {
-            if (currentScene != value)
-            {
-                DisableScene();
-                EnableScene(value);
-            }
-
+            LoadScene(value);
             currentScene = value;
         }
     }
@@ -70,6 +68,18 @@ public class DemoManager : MonoBehaviour
         CurrentScene = (SceneType) input;
     }
 
+    public void LoadScene(SceneType type)
+    {
+        DisableScene();
+        EnableScene(type);
+    }
+
+    public void ReloadScene()
+    {
+        DisableScene();
+        EnableScene(CurrentScene);
+    }
+
     private void DisableScene()
     {
         GameObject[] targetObjects = {};
@@ -91,7 +101,10 @@ public class DemoManager : MonoBehaviour
 
             case SceneType.LiftObject:
                 targetObjects = liftObjectObjects;
-                liftManager.Revert();
+                if (liftManager.gameObject.activeSelf)
+                    liftManager.Revert();
+                else
+                    holdManager.Revert();
                 break;
 
             case SceneType.DragObject:

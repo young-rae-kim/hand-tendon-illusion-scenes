@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Filtering;
 
-public class LiftManager : MonoBehaviour
+public class LiftManager : MonoBehaviour, IXRSelectFilter
 {
     [SerializeField]
     private ArduinoController arduinoController;
@@ -14,6 +15,9 @@ public class LiftManager : MonoBehaviour
 
     [SerializeField]
     private GameObject leftHandPosition;
+
+    [SerializeField]
+    private HoldManager holdManager;
 
     public TextMeshProUGUI pointingText;
     public TextMeshProUGUI holdingText;
@@ -47,6 +51,8 @@ public class LiftManager : MonoBehaviour
         }
     }
 
+    public bool canProcess => isActiveAndEnabled;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -54,33 +60,28 @@ public class LiftManager : MonoBehaviour
         originalRotation = gameObject.transform.rotation;
 
         XRGrabInteractable grabInteractable = GetComponent<XRGrabInteractable>();
-        grabInteractable.hoverEntered.AddListener(SetupAttach);
-        grabInteractable.selectExited.AddListener(CancelAttach);
+        grabInteractable.selectEntered.AddListener(SetupAttachLantern);
+        grabInteractable.selectExited.AddListener(CancelAttachLantern);
     }
 
     // Update is called once per frame
     void Update()
     {
         pointingText.text = "Pointing: " + Pointing.ToString();
-        holdingText.text = "Holding: " + Holding.ToString();
+        holdingText.text = "Holding (Lantern): " + Holding.ToString();
     }
 
-    private void SetupAttach(BaseInteractionEventArgs arg)
+    private void SetupAttachLantern(BaseInteractionEventArgs arg)
     {      
-        if (Pointing) 
-        {
-            xrInteractionManager.SelectEnter(
-                (IXRSelectInteractor) arg.interactorObject,
-                (IXRSelectInteractable) arg.interactableObject);
-            leftHandPosition.SetActive(false);
-            Holding = true;
-        }
+        holdManager.gameObject.SetActive(false);
+        leftHandPosition.SetActive(false);
+        Holding = true;
     }
 
-    private void CancelAttach(BaseInteractionEventArgs arg)
+    private void CancelAttachLantern(BaseInteractionEventArgs arg)
     {
-        gameObject.transform.position = originalPosition;
-        gameObject.transform.rotation = originalRotation;
+        gameObject.transform.SetPositionAndRotation(originalPosition, originalRotation);
+        holdManager.gameObject.SetActive(true);
         leftHandPosition.SetActive(true);
         Holding = false;
     }
@@ -88,7 +89,13 @@ public class LiftManager : MonoBehaviour
     public void Revert()
     {
         gameObject.transform.SetPositionAndRotation(originalPosition, originalRotation);
+        holdManager.gameObject.SetActive(true);
         leftHandPosition.SetActive(true);
         Holding = false;
+    }
+
+    public bool Process(IXRSelectInteractor interactor, IXRSelectInteractable interactable)
+    {
+        return Pointing;
     }
 }

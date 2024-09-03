@@ -68,7 +68,7 @@ public class GrabManager : MonoBehaviour
 
     public void Revert()
     {
-        tennisBall.transform.SetPositionAndRotation(originalPosition, originalRotation);
         Holding = false;
+        tennisBall.transform.SetPositionAndRotation(originalPosition, originalRotation);
     }
 }
