@@ -21,7 +21,7 @@ public class TrainManager : MonoBehaviour
 
     private bool firstPushed = false;
     private float currentXPosition = -0.45f;
-    public float offset = 0.055f;
+    private readonly float offset = 0.055f;
     private readonly float threshold = 0.1f;
     private readonly float lowerbound = -0.455f;
     private readonly float upperbound = 0.7f;

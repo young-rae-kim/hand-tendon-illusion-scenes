@@ -26,12 +26,10 @@ public class PushManager : MonoBehaviour
     {
         get { return pushing; }
         set 
-        { 
-            bool previousValue = pushing; 
-             
-            if (Pointing && previousValue != value)
+        {             
+            if (pushing != value)
             {
-                if (value)
+                if (value && Pointing)
                     arduinoController.Vibrate(true);
                 else
                     arduinoController.Stop(true);

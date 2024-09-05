@@ -20,6 +20,9 @@ public class DemoManager : MonoBehaviour
     [SerializeField]
     private StaplerManager staplerManager;
 
+    [SerializeField]
+    private TapeManager tapeManager;
+
     public enum SceneType 
     {
         PushButton = 0, 
@@ -28,7 +31,7 @@ public class DemoManager : MonoBehaviour
         LiftObject = 3, 
         DragObject = 4, 
         StaplerGadget = 5, 
-        Gadget = 6
+        TapeGadget = 6
     }
 
     public SceneType CurrentScene {
@@ -61,7 +64,7 @@ public class DemoManager : MonoBehaviour
     private GameObject[] staplerGadgetObjects;
 
     [SerializeField]
-    private GameObject[] gadgetObjects;
+    private GameObject[] tapeGadgetObjects;
 
     public void SetScene(int input)
     {
@@ -117,8 +120,9 @@ public class DemoManager : MonoBehaviour
                 staplerManager.Revert();
                 break;
 
-            case SceneType.Gadget:
-                targetObjects = gadgetObjects;
+            case SceneType.TapeGadget:
+                targetObjects = tapeGadgetObjects;
+                tapeManager.Revert();
                 break;
 
             default:
@@ -161,8 +165,8 @@ public class DemoManager : MonoBehaviour
                 targetObjects = staplerGadgetObjects;
                 break;
 
-            case SceneType.Gadget:
-                targetObjects = gadgetObjects;
+            case SceneType.TapeGadget:
+                targetObjects = tapeGadgetObjects;
                 break;
 
             default:

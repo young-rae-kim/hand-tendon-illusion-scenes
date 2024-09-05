@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Interactable
   - Indicator
+  - Holder
   layers:
   - Default
   - TransparentFX
