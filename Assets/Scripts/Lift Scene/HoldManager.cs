@@ -73,9 +73,9 @@ public class HoldManager : MonoBehaviour, IXRSelectFilter
 
     private void SetupAttachKettlebell(BaseInteractionEventArgs arg) 
     {
-            liftManager.gameObject.SetActive(false);
-            leftHandPosition.SetActive(false);
-            Holding = true;
+        liftManager.gameObject.SetActive(false);
+        leftHandPosition.SetActive(false);
+        Holding = true;
     }
 
     private void CancelAttachKettlebell(BaseInteractionEventArgs arg)

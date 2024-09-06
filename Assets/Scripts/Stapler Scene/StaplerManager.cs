@@ -22,11 +22,12 @@ public class StaplerManager : MonoBehaviour
     private Quaternion originalRotation;
 
     private float currentHingeAngle = 0f;
-    private readonly float rotationSpeed = 1.2f;
+    private readonly float rotationSpeed = 1.5f;
     private readonly float staplerRadius = 0.51631709605f;
 
     private bool grabbing = false;
     private bool holding = false;
+
     public bool Grabbing 
     {
         get { return grabbing; }
@@ -34,9 +35,9 @@ public class StaplerManager : MonoBehaviour
         { 
             bool previousValue = grabbing; 
              
-            if (Holding && previousValue != value)
+            if (previousValue != value)
             {
-                if (value)
+                if (Holding && value)
                     arduinoController.Vibrate(true);
                 else
                     arduinoController.Stop(true);
@@ -59,13 +60,16 @@ public class StaplerManager : MonoBehaviour
 
     void Start()
     {
-        originalPosition = gameObject.transform.position;
-        originalRotation = gameObject.transform.rotation;
+        originalPosition = transform.position;
+        originalRotation = transform.rotation;
+        Debug.Log(staplerBracket.transform.localEulerAngles);
     }
 
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(Vector3.Angle(staplerBracket.transform.rotation.eulerAngles, transform.rotation.eulerAngles));
+
         // Fetching hands, if there exist and left one is holding stapler then transform the stapler
         if (holding) 
         {
@@ -85,15 +89,12 @@ public class StaplerManager : MonoBehaviour
 
     public void ResetStapler()
     {
-        float deltaAngle = - currentHingeAngle;
-        staplerBracket.transform.Rotate(0, 0, deltaAngle * rotationSpeed);
+        staplerBracket.transform.localEulerAngles = new Vector3(0, 0, 0);
         currentHingeAngle = 0f;
     }
 
     public void Revert()
     {
-        ResetStapler();
-        gameObject.transform.SetPositionAndRotation(originalPosition, originalRotation);
-        Holding = false;
+        transform.SetPositionAndRotation(originalPosition, originalRotation);
     }
 }

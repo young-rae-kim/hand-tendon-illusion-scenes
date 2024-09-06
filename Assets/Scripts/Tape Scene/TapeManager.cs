@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -12,7 +13,7 @@ public class TapeManager : MonoBehaviour
     private GameObject rightHand;
 
     [SerializeField]
-    private GameObject extendedTape;
+    private Transform extendedTape;
 
     [SerializeField]
     private GameObject leftHandPosition;
@@ -55,7 +56,8 @@ public class TapeManager : MonoBehaviour
         set 
         {
             if (!value)
-                Holding = false;
+                RevertTape();
+                
             pinching = value;
         }
     }
@@ -83,19 +85,24 @@ public class TapeManager : MonoBehaviour
     private bool pinching = false;
 
     private readonly float offset = 0.705f;
-    private readonly float lowerbound = 0.225f;
+    private readonly float lowerbound = 0.255f;
     private readonly float upperbound = 0.825f;
+
+    private float currentSpeed = 0f;
+    private readonly float threshold = 0.01f;
+    private readonly float maxSpeed = 1f;
+    private readonly float acceleration = 1f;
 
     // Update is called once per frame
     void Update()
     {
         float updatedPosition = leftIndexTip.position.x + offset;
 
-        if (extendedTape.transform.position.x > upperbound)
+        if (extendedTape.position.x > upperbound)
         {
             MoveTape(upperbound);
         }
-        else if (extendedTape.transform.position.x < lowerbound)
+        else if (extendedTape.position.x < lowerbound)
         {
             Debug.Log("Tape maximum length reached");
             RevertTape();
@@ -109,26 +116,35 @@ public class TapeManager : MonoBehaviour
 
         attachedText.text = "Attached (RH): " + attached.ToString();
         holdingText.text = "Holding (LH): " + holding.ToString();
-        pinchingText.text = "Pinching: " + pinching.ToString();
+        pinchingText.text = "Downward (LH): " + pinching.ToString();
     }
 
     private void MoveTape(float xPosition)
     {
-        extendedTape.transform.position = new Vector3 (
-            xPosition, extendedTape.transform.position.y, extendedTape.transform.position.z
+        extendedTape.position = new Vector3 (
+            xPosition, extendedTape.position.y, extendedTape.position.z
         );
     }
 
-    private void MoveTapeWithAnimation(float xPosition)
+    private IEnumerator MoveTapeWithAnimation(float xPosition)
     {
-        extendedTape.transform.position = new Vector3 (
-            xPosition, extendedTape.transform.position.y, extendedTape.transform.position.z
-        );
+        while (Math.Abs(extendedTape.position.x - xPosition) > threshold)
+        {
+            Debug.Log(extendedTape.position.x);
+            currentSpeed += Mathf.Min(acceleration * Time.deltaTime, 1);
+            extendedTape.position = Vector3.MoveTowards(extendedTape.position,
+                new Vector3(xPosition, extendedTape.position.y, extendedTape.position.z), 
+                maxSpeed * currentSpeed * Time.deltaTime);
+            yield return new WaitForEndOfFrame();
+        }
+
+        currentSpeed = 0f;
+        Debug.Log("Returned");
     }
 
     private void RevertTape()
     {
-        MoveTapeWithAnimation(upperbound);
+        StartCoroutine(MoveTapeWithAnimation(upperbound));
         leftHand.SetActive(true);
         leftHandPosition.SetActive(true);
         Holding = false;

@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 740f51a1ac4b42088297287229057627, type: 3}
   m_Name: Grab Downward
   m_EditorClassIdentifier: 
-  m_HandShape: {fileID: 11400000, guid: c0ebec966fec1a543ae22ba176ef2c65, type: 2}
+  m_HandShape: {fileID: 11400000, guid: 9afd302a176a00b4bad0dacb8ef7b07d, type: 2}
   m_RelativeOrientation:
     m_UserConditions:
     - m_HandAxis: 0
       m_AlignmentCondition: 2
       m_ReferenceDirection: 0
-      m_AngleTolerance: 60
+      m_AngleTolerance: 75
       m_IgnorePositionY: 0
     m_TargetConditions: []
