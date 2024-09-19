@@ -48,16 +48,10 @@ public class HoverManager : MonoBehaviour
 
     private bool hovered = false;
     private bool pushed = false;
-    private readonly float pushThreshold = -10f;
 
     // Update is called once per frame
     void Update()
     {
-        if (buttonTransform.localPosition.z > pushThreshold)
-            Pushed = true;
-        else
-            Pushed = false;
-
         hoveredText.text = "Hovered: " + Hovered.ToString();
         pushedText.text = "Pushed: " + Pushed.ToString();
     }

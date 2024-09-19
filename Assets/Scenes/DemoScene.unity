@@ -747,6 +747,7 @@ GameObject:
   - component: {fileID: 84084124}
   - component: {fileID: 84084122}
   - component: {fileID: 84084121}
+  - component: {fileID: 84084128}
   m_Layer: 5
   m_Name: Text Button
   m_TagString: Untagged
@@ -896,7 +897,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 84084119}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 07b3638c2f5db5b479ff24c2859713d4, type: 3}
   m_Name: 
@@ -959,7 +960,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 0.1254902, g: 0.5882353, b: 0.95294124, a: 1}
-    m_HighlightedColor: {r: 0.09411766, g: 0.43921572, b: 0.7137255, a: 1}
+    m_HighlightedColor: {r: 0.1254902, g: 0.5882353, b: 0.95294124, a: 1}
     m_PressedColor: {r: 0.34509805, g: 0.6901961, b: 0.96470594, a: 1}
     m_SelectedColor: {r: 0.1254902, g: 0.5882353, b: 0.95294124, a: 1}
     m_DisabledColor: {r: 0.7843138, g: 0.7843138, b: 0.7843138, a: 0.5019608}
@@ -989,6 +990,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 84084119}
   m_CullTransparentMesh: 0
+--- !u!114 &84084128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 84084119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cd1d9c4488a56641a1d07647dacdbb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverManager: {fileID: 1561979938}
 --- !u!1001 &113066317
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4980,7 +4994,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Placeholder
+  m_text: 'Hand tracking state: False'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
